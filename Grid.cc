@@ -67,32 +67,31 @@ int Grid::countCaveCells() {
 
 //Функція для перевірки цілісності поля.
 bool Grid::fullyConnected(){
-    Point *start = NULL;
+    vector<pair<int, int>> move_to; //Вектор який буде наповнюватися можливими варіантами для руху щоб запобігнути повторним мувам.
     for (int x = 0; x < width; x++) { //Пошук стартової клітинки. (Можливо варто буде оптимізувати)
         for (int y = 0; y < height; y++) {
             if (grid[x][y].type != WALL) {
-                start = &grid[x][y];
+                move_to.push_back({x, y});
                 break;
             }
         }
-        if (start) {
+        if (!move_to.empty()) {
             break;
         }
     }
-    if (!start) { //Не знайдена ні одна пуста клітинка.
+    if (move_to.empty()) { //Не знайдена ні одна пуста клітинка.
         return false;
     }
 
     unordered_set<Point*> visited; 
-    vector<Point*> move_to = {start}; //Вектор який буде наповнюватися можливими варіантами для руху щоб запобігнути повторним мувам.
     while (!move_to.empty()) {
-        Point *curr_point = move_to.back(); //Отримання певного елемента
+        auto [x, y] = move_to.back(); //Отримання певного елемента
+        //+P.S. - auto для того щоб не визначати тип самому, а [x, y] - річ доступна для отримання змінних з класу, починаючи з С++17 (Structured bilding declaration)
         move_to.pop_back(); //Забирання цього елементу зі списку
+        Point* curr_point = &grid[x][y];
         if (!visited.insert(curr_point).second) { //Перевірка є вже об'єкт в відвіданих
             continue;
         }
-        
-
     }
 
 
