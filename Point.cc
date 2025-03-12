@@ -18,7 +18,7 @@ Point::Point(int number){
 	type = VALUED_CELL;
 	str = intToChar(number);
 }
-
+//P.S. для себе. Гарною пракикою при створенні хоча б одного з нижче зроблених 3-х функцій є робити всі одразу. НА вікіпедії це зветься Rule of 3
 //Деструкор класу точки для очищення str
 Point::~Point(){
 	delete[] str;

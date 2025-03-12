@@ -36,7 +36,6 @@ int main() {
     grid.show();
 
     cout << grid.countVisible(3, 3) << endl;
-    cout << grid.countCaveCells();
 
     return 0;
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_set>
 #include "Grid.h"
 
 using namespace std;
@@ -21,9 +22,9 @@ void Grid::setPoint(int x, int y, Point p) {
 
 // Вивід поля.
 void Grid::show() {
-    for (auto &row : grid) {
-        for (auto &cell : row) {
-            cout << cell.str;
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            cout << grid[x][y].str;
         }
         cout << endl;
     }
@@ -65,3 +66,36 @@ int Grid::countCaveCells() {
 }
 
 //Функція для перевірки цілісності поля.
+bool Grid::fullyConnected(){
+    Point *start = NULL;
+    for (int x = 0; x < width; x++) { //Пошук стартової клітинки. (Можливо варто буде оптимізувати)
+        for (int y = 0; y < height; y++) {
+            if (grid[x][y].type != WALL) {
+                start = &grid[x][y];
+                break;
+            }
+        }
+        if (start) {
+            break;
+        }
+    }
+    if (!start) { //Не знайдена ні одна пуста клітинка.
+        return false;
+    }
+
+    unordered_set<Point*> visited; 
+    vector<Point*> move_to = {start}; //Вектор який буде наповнюватися можливими варіантами для руху щоб запобігнути повторним мувам.
+    while (!move_to.empty()) {
+        Point *curr_point = move_to.back(); //Отримання певного елемента
+        move_to.pop_back(); //Забирання цього елементу зі списку
+        if (!visited.insert(curr_point).second) { //Перевірка є вже об'єкт в відвіданих
+            continue;
+        }
+        
+
+    }
+
+
+    //Кінцівка
+    return visited.size() == countCaveCells();
+}

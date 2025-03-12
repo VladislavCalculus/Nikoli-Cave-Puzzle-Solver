@@ -13,7 +13,8 @@ struct Grid {
     void setPoint(int x, int y, Point p);
     void show();
     int countVisible(int x, int y);
-    //bool fullyConnected();
+    bool fullyConnected();
+private:
     int countCaveCells();
 };
 
