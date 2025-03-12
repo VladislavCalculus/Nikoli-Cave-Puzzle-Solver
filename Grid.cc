@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int g_directions[4][2] = {{1, 0}, {0, -1}, {-1, 0}, {0, 1}}; // Напрямки: вправо, вниз, вліво, вгору
+const int directions [4][2] = {{1, 0}, {0, -1}, {-1, 0}, {0, 1}}; // Напрямки: вправо, вниз, вліво, вгору
 
 // Конструктор класу.
 Grid::Grid(int w, int h) {
@@ -14,8 +14,9 @@ Grid::Grid(int w, int h) {
 
 // Встановлення точки.
 void Grid::setPoint(int x, int y, Point p) {
-    if (x < width && y < height)
+    if (x < width && y < height) {
         grid[x][y] = p;
+    }
 }
 
 // Вивід поля.
@@ -37,8 +38,8 @@ int Grid::countVisible(int x, int y) {
     for (int i = 0; i < 4; i++) {
         int cursor = 1;
         while (true) {
-            int move_x = x + g_directions[i][0] * cursor;
-            int move_y = y + g_directions[i][1] * cursor;
+            int move_x = x + directions[i][0] * cursor;
+            int move_y = y + directions[i][1] * cursor;
             if ((move_x >= 0 && move_x < width) && (move_y >= 0 && move_y < height) && grid[move_x][move_y].type != WALL) {
                 counter++;
                 cursor++;
@@ -49,3 +50,18 @@ int Grid::countVisible(int x, int y) {
     }
     return counter;
 }
+
+//Функція для підрахунку кількості пустих клітинок. Використовується в перевірці цілісності поля.
+int Grid::countCaveCells() {
+    int counter = 0;
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            if (grid[x][y].type != WALL) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+//Функція для перевірки цілісності поля.

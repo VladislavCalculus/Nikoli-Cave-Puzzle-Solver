@@ -11,7 +11,7 @@ Point::Point(){
 
 //Конструктор з параметром - створює клітинку з числом.
 Point::Point(int number){
-	if(number < 0){
+	if (number < 0) {
 		exit(1);
 	}
 	value = number;
@@ -56,7 +56,7 @@ Point& Point::operator=(const Point& other) {
 
 //Перетворює точку на стіну.
 void Point::wallify(){
-	if(value > 0){
+	if (value > 0) {
 		return;
 	}
 	value = -1;
@@ -66,7 +66,7 @@ void Point::wallify(){
 
 //Перетворює точку на пусту клітинку.
 void Point::cellify(){
-	if(value > 0){
+	if (value > 0) {
 		return;
 	}
 	value = 0;

@@ -5,8 +5,6 @@
 #include <vector>
 using namespace std;
 
-extern int g_directions[4][2];
-
 struct Grid {
     vector<vector<Point>> grid;
     int width, height;
@@ -15,6 +13,8 @@ struct Grid {
     void setPoint(int x, int y, Point p);
     void show();
     int countVisible(int x, int y);
+    //bool fullyConnected();
+    int countCaveCells();
 };
 
 #endif

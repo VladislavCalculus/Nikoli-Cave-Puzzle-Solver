@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Grid.h"
 
-
 using namespace std;
 
 int main() {
@@ -36,7 +35,8 @@ int main() {
     cout << "Grid state:\n";
     grid.show();
 
-    cout << grid.countVisible(3, 3);
+    cout << grid.countVisible(3, 3) << endl;
+    cout << grid.countCaveCells();
 
     return 0;
 }
