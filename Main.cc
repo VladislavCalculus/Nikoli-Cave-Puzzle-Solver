@@ -47,10 +47,7 @@ int main() {
     cout << "Grid state:\n";
     grid.show();
 
-    cout << "Count visible cells from x=3 y=3:\n";
-    cout << grid.countVisible(3, 3) << endl;
+    
 
-    cout << "Check Grid's loop\n";
-    cout << grid.fullyConnected();
     return 0;
 }

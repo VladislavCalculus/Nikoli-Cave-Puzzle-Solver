@@ -1,16 +1,12 @@
 #include "Solver.h"
 using namespace std;
 
-Solver::Solver(Grid *grid){
-    this->grid = grid;
-}
-
 //TODO: Функція яка розв'язує саму головоломку.
-void Solver::Solve(){
+void solveCave(Grid *grid){
     return;
 }
 
 //TODO: Функція для валідації чи є розв'язок вірним.
-bool Solver::validateSolution(){
+bool validateSolution(Grid *grid){
     return true; //Чисто плейсхолдер щоб скомпайлити.
 }
