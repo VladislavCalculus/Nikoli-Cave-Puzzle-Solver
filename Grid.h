@@ -15,7 +15,8 @@ struct Grid {
     int countVisible(int x, int y);
     bool fullyConnected();
 private:
-    int countCaveCells();
+    size_t countCaveCells();
+    bool canMoveTo(int x, int y, int direction, int distance);
 };
 
 #endif
