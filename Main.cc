@@ -47,7 +47,8 @@ int main() {
     cout << "Grid state:\n";
     grid.show();
 
-    
+    cout << "\nIs the solution valid?: \n";
+    cout << validateSolution(&grid);
 
     return 0;
 }
