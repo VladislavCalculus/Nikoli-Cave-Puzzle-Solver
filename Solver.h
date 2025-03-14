@@ -5,7 +5,7 @@
 #include "Grid.h"
 using namespace std;
 
-extern void solveCave (Grid *grid);
+extern bool solveCave (Grid *grid, int x, int y);
 extern bool validateSolution (Grid *grid);
 
 #endif

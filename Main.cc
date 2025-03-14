@@ -24,31 +24,16 @@ int main() {
     grid.setPoint(6, 2, Point(2));
     grid.setPoint(6, 4, Point(2));
 
-    grid.grid[0][0].wallify();
-    grid.grid[0][1].wallify();
-    grid.grid[0][3].wallify();
-    grid.grid[0][6].wallify();
-    grid.grid[1][3].wallify();
-    grid.grid[1][4].wallify();
-    grid.grid[1][6].wallify();
-    grid.grid[2][1].wallify();
-    grid.grid[3][0].wallify();
-    grid.grid[3][1].wallify();
-    grid.grid[3][4].wallify();
-    grid.grid[3][5].wallify();
-    grid.grid[3][6].wallify();
-    grid.grid[5][2].wallify();
-    grid.grid[5][3].wallify();
-    grid.grid[5][4].wallify();
-    grid.grid[6][0].wallify();
-    grid.grid[6][3].wallify();
-    grid.grid[6][6].wallify();
+
 
     cout << "Grid state:\n";
     grid.show();
 
-    cout << "\nIs the solution valid?: \n";
-    cout << validateSolution(&grid);
-
+    if (solveCave(&grid, 0, 0)) {
+        cout << "\nSolved Grid:\n";
+        grid.show();
+    } else {
+        cout << "\nNo solution found!\n";
+    }
     return 0;
 }

@@ -107,5 +107,6 @@ bool Grid::fullyConnected(){
             }
         }
     }
+    //Кінцівка
     return visited.size() == countCaveCells();
 }
