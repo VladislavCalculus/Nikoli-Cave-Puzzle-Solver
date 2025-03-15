@@ -13,6 +13,7 @@ struct Grid {
     void setPoint(int x, int y, Point p);
     void show();
     int countVisible(int x, int y);
+    vector<pair<int, int>> visibleValues(int x, int y);
     bool fullyConnected();
 private:
     size_t countCaveCells();

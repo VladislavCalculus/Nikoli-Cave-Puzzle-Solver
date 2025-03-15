@@ -61,6 +61,26 @@ int Grid::countVisible(int x, int y) {
     return counter;
 }
 
+vector<pair<int, int>> Grid::visibleValues(int x, int y){
+    vector<pair<int, int>> visible;
+    for(int i = 0; i < 4; i++){
+        int cursor = 1;
+        while (true) {
+            if (canMoveTo(x, y, i, cursor)) {
+                int move_x = x + DIRECTIONS[i][0] * cursor;
+                int move_y = y + DIRECTIONS[i][1] * cursor;
+                if (grid[move_x][move_y].type == VALUED_CELL) {
+                    visible.push_back(make_pair(move_x, move_y));
+                }
+                cursor++;
+            } else {
+                break;
+            }
+        }
+    } 
+    return visible;
+}
+
 //Функція для підрахунку кількості пустих клітинок. Використовується в перевірці цілісності поля.
 size_t Grid::countCaveCells() {
     size_t counter = 0;
