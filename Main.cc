@@ -29,15 +29,11 @@ int main() {
     cout << "Grid state:\n";
     grid.show();
 
-    //if (solveCave(&grid, 0, 0)) {
+    if (solveCave(&grid, 0, 0)) {
         cout << "\nSolved Grid:\n";
         grid.show();
-        vector<pair<int, int>> coords = grid.visibleValues(1, 2);
-        for (int i = 0; i < coords.size(); i++) {
-            cout << "Y: " << coords[i].first << " | X: " << coords[i].second << endl;
-        }
-    //} else {
+    } else {
         cout << "\nNo solution found!\n";
-    //}
+    }
     return 0;
 }
