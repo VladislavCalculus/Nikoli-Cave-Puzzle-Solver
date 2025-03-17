@@ -1,34 +1,28 @@
 #include "Interface.h"
+#include <string.h>
+#include <stdlib.h>
 
 //Функція яка буде визиватися в мейні (Запуск)
 void init(){
-    Grid grid(7, 7);
-    grid.setPoint(0, 2, Point(5));
-    grid.setPoint(0, 4, Point(2));
-    grid.setPoint(1, 1, Point(3));
-    grid.setPoint(1, 5, Point(3));
-    grid.setPoint(2, 0, Point(2));
-    grid.setPoint(2, 2, Point(9));
-    grid.setPoint(2, 4, Point(5));
-    grid.setPoint(2, 6, Point(5));
-    grid.setPoint(3, 3, Point(4));
-    grid.setPoint(4, 0, Point(8));
-    grid.setPoint(4, 2, Point(11));
-    grid.setPoint(4, 4, Point(7));
-    grid.setPoint(4, 6, Point(8));
-    grid.setPoint(5, 1, Point(4));
-    grid.setPoint(5, 5, Point(4));
-    grid.setPoint(6, 2, Point(2));
-    grid.setPoint(6, 4, Point(2));
+	int width, height;
 
-    cout << "Grid state:\n";
-    grid.show();
+	cout << "Enter size of the grid: ";
+	cin >> width >> height;
 
-    if (solveCave(&grid, 0, 0)) {
-        cout << "\nSolved Grid:\n";
-        grid.show();
-    } else {
-        cout << "\nNo solution found!\n";
+    Grid grid(width, height);
+    cin.ignore(); //<- цей ігнор потрібен щоб очистити данні з минулого cin
+    
+    cout << "Enter rows for the grid (separate numbers using space):\nExample: 3 0 0 2 0\n0 - blank cell\nDigit - numbered cell\n";
+    for (int i = 0; i < width; i++) {
+        char line[255];
+        cin.getline(line, 255);
+
+        char *num = strtok(line, " ");
+        for (int j = 0; j < height && num != nullptr; j++) {
+            grid.setPoint(i, j, Point(atoi(num)));
+            num = strtok(nullptr, " ");
+        }
     }
+    cout << "\nGrid state:\n";
+    grid.show();
 }
-
