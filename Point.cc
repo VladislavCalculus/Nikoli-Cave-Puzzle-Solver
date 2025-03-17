@@ -6,7 +6,7 @@ Point::Point(){
 	value = 0;
 	type = CELL;
 	str = new char[3];
-	strcpy(str, ".");
+	strcpy(str, " . ");
 }
 
 //Конструктор з параметром - створює клітинку з числом.
@@ -61,7 +61,7 @@ void Point::wallify(){
 	}
 	value = -1;
 	type = WALL;
-	strcpy(str, "#");
+	strcpy(str, " # ");
 }
 
 //Перетворює точку на пусту клітинку.
@@ -71,13 +71,13 @@ void Point::cellify(){
 	}
 	value = 0;
 	type = CELL;
-	strcpy(str, ".");
+	strcpy(str, " . ");
 }
 	
 //Для отримання числа як рядка
 char* Point::intToChar(int value) {
     char *str = new char[4];
-    sprintf(str, "%d", value);
+    sprintf(str, " %d ", value);
     return str;
 }
 

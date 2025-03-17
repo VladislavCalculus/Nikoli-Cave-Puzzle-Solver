@@ -1,7 +1,6 @@
 #include "Solver.h"
-using namespace std;
 
-//TODO: функція перевірки поставновки стіни, повинна пришвидшити виконання програми (хоча б по мінімуму)
+//функція перевірки поставновки стіни, повинна пришвидшити виконання програми (хоча б по мінімуму)
 static bool canWallify(Grid *grid, int x, int y) {
     for (auto [x, y]: grid->visibleValues(x, y)) {
         if (grid->countVisible(x, y) <= grid->grid[x][y].value) {
