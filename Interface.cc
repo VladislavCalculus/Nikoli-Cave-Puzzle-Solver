@@ -48,13 +48,11 @@ void init(){
     grid.show();
 
     cout << "\n--=Wait... Solving in prosses...=--" << endl;
-    grid.grid[2][2].wallify();
-    connectWall(&grid, 2, 2);
-    //if (solveCave(&grid, 0, 0)) {
-        //cout << "\nSolved Grid:\n";
+    if (solveCave(&grid)) {
+        cout << "\nSolved Grid:\n";
         grid.show();
-    //} else {
-        //cout << "\nNo solution found!\n";
-    //}
+    } else {
+        cout << "\nNo solution found!\n";
+    }
 }
 

@@ -27,7 +27,7 @@ static bool validateNumbers(Grid *grid) {
 }
 
 //Функція яка з'єднує стіни до кордонів гріда
-bool connectWall(Grid *grid, int x, int y) {
+static bool connectWall(Grid *grid, int x, int y) {
     if (x < 0 || x >= grid->width || y < 0 || y >= grid->height) {
         return false;
     }
@@ -58,6 +58,8 @@ bool connectWall(Grid *grid, int x, int y) {
                 grid->grid[move_x][move_y].wallify();
                 if (!connectWall(grid, move_x, move_y)) {
                     grid->grid[move_x][move_y].cellify();
+                } else if (grid->grid[move_x][move_y].type == CONFIRMED_WALL) {
+                    grid->grid[x][y].type = CONFIRMED_WALL;
                 }
             }
         }
@@ -66,11 +68,19 @@ bool connectWall(Grid *grid, int x, int y) {
 }
 
 static bool validateWalls(Grid *grid) {
-
+    for (int x = 0; x < grid->width; x++) {
+        for (int y = 0; y < grid->height; y++) {
+            if (grid->grid[x][y].type == WALL && !connectWall(grid, x, y)) {
+                return false;
+            } 
+        }
+    }
+    return true;
 }
 
-//TODO: Функція яка розв'язує саму головоломку.
-bool solveCave(Grid *grid, int x, int y) {
+
+//Функція що зазово замальовує клітинки
+static bool fillWalls(Grid *grid, int x, int y) {
     if(y >= grid->height){
         return false;
     }
@@ -84,20 +94,25 @@ bool solveCave(Grid *grid, int x, int y) {
         next_y++;
     }
     if (grid->grid[x][y].type == VALUED_CELL) {
-        return solveCave(grid, next_x, next_y);
+        return fillWalls(grid, next_x, next_y);
     }
 
     if (canWallify(grid, x, y)) {
         grid->grid[x][y].wallify();
-        if (grid->fullyConnected() && (validateNumbers(grid) || solveCave(grid, next_x, next_y))) {
+        if (grid->fullyConnected() && (validateNumbers(grid) || fillWalls(grid, next_x, next_y))) {
             return true;
         }
     }
 
     grid->grid[x][y].cellify();
-    if (validateNumbers(grid) || solveCave(grid, next_x, next_y)) {
+    if (validateNumbers(grid) || fillWalls(grid, next_x, next_y)) {
         return true;
     }
 
     return false; //Не знайдено розв'язків
+}
+
+//Функція яка розв'язує саму головоломку. 
+bool solveCave(Grid *grid) {
+    return fillWalls(grid, 0, 0) && validateWalls(grid);
 }
