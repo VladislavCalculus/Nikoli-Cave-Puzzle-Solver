@@ -6,7 +6,7 @@ using namespace std;
 
 //Перелік типів точок.
 enum PointType {
-	CELL, VALUED_CELL, WALL
+	CELL, VALUED_CELL, WALL, CONFIRMED_WALL
 };
 
 //Клас точки на полі. Має мінімальний набір методів для зручності.

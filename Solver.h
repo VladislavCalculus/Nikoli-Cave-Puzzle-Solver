@@ -6,5 +6,6 @@
 using namespace std;
 
 bool solveCave (Grid *grid, int x, int y);
+bool connectWall(Grid *grid, int x, int y);
 
 #endif
