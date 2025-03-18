@@ -34,7 +34,7 @@ static bool connectWall(Grid *grid, int x, int y, unordered_set<Point*> &visited
     }
 
     Point *curr = &grid->grid[x][y];
-    cout << "X: " << x << " | Y: " << y << " | TYPE: " << grid->grid[x][y].type << endl;
+    //cout << "X: " << x << " | Y: " << y << " | TYPE: " << grid->grid[x][y].type << endl;
     if (curr->type == CONFIRMED_WALL) {
         return true;
     } else if (curr->type != WALL) {
@@ -59,6 +59,17 @@ static bool connectWall(Grid *grid, int x, int y, unordered_set<Point*> &visited
                 curr->type = CONFIRMED_WALL;
                 return true;
             }
+        } else if (next->type == CELL) {
+            if (canWallify(grid, move_x, move_y)) {
+                cout << "This cell can be wallified | X: " << move_x << " | Y: "<< move_y << endl;
+                next->wallify();
+                if (grid->fullyConnected() && connectWall(grid, move_x, move_y, visited)) {
+                    curr->type = CONFIRMED_WALL;
+                    return true;
+                } else {
+                    next->cellify();
+                }
+            }
         }
     }
     return false;
@@ -75,7 +86,7 @@ static bool validateWalls(Grid *grid, unordered_set<Point*> &visited) {
     return true;
 }
 
-//Функція що зазово замальовує клітинки
+//Функція що замальовує клітинки
 static bool fillWalls(Grid *grid, int x, int y) {
     if(y >= grid->height){
         return false;

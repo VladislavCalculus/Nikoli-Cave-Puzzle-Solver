@@ -47,7 +47,7 @@ void init(){
     cout << "\nGrid state:\n";
     grid.show();
 
-    cout << "\n--=Wait... Solving in prosses...=--" << endl;
+    cout << "\n--= Wait... Solving in prosses... =--" << endl;
     if (solveCave(&grid)) {
         cout << "\nSolved Grid:\n";
         grid.show();
