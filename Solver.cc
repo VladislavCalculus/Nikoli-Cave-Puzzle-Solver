@@ -1,4 +1,5 @@
 #include "Solver.h"
+#include <unordered_set>
 
 const int DIRECTIONS [4][2] = {{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
 
@@ -27,57 +28,52 @@ static bool validateNumbers(Grid *grid) {
 }
 
 //Функція яка з'єднує стіни до кордонів гріда
-static bool connectWall(Grid *grid, int x, int y) {
+static bool connectWall(Grid *grid, int x, int y, unordered_set<Point*> &visited) {
     if (x < 0 || x >= grid->width || y < 0 || y >= grid->height) {
         return false;
     }
 
-    if (grid->grid[x][y].type == CONFIRMED_WALL) {
+    Point *curr = &grid->grid[x][y];
+    cout << "X: " << x << " | Y: " << y << " | TYPE: " << grid->grid[x][y].type << endl;
+    if (curr->type == CONFIRMED_WALL) {
+        return true;
+    } else if (curr->type != WALL) {
+        return false;
+    } 
+    if (!visited.insert(curr).second) { 
         return true;
     }
-
-    if (grid->grid[x][y].type != WALL) {
-        return false;
-    }
-
     for (int i = 0; i < 4; i++) {
         int move_x = x + DIRECTIONS[i][0];
         int move_y = y + DIRECTIONS[i][1];
-        if((move_x < 0 || move_x >= grid->width) || (move_y < 0 || move_y >= grid->height)){
-            grid->grid[x][y].type = CONFIRMED_WALL;
-            continue;
+        if(move_x < 0 || move_x >= grid->width || move_y < 0 || move_y >= grid->height){
+            curr->type = CONFIRMED_WALL;
+            return true;
         }
-        if (grid->grid[move_x][move_y].type == WALL) {
-            if (connectWall(grid, move_x, move_y)) {
-                grid->grid[x][y].type = CONFIRMED_WALL;
-            }
-        } else if (grid->grid[move_x][move_y].type == CONFIRMED_WALL && grid->grid[x][y].type != CONFIRMED_WALL) {
-            grid->grid[x][y].type = CONFIRMED_WALL;
-        } else if (grid->grid[move_x][move_y].type == CELL) {
-            if (canWallify(grid, move_x, move_y)) {
-                grid->grid[move_x][move_y].wallify();
-                if (!connectWall(grid, move_x, move_y)) {
-                    grid->grid[move_x][move_y].cellify();
-                } else if (grid->grid[move_x][move_y].type == CONFIRMED_WALL) {
-                    grid->grid[x][y].type = CONFIRMED_WALL;
-                }
+        Point *next = &grid->grid[move_x][move_y];
+        if (next->type == CONFIRMED_WALL) {
+            curr->type = CONFIRMED_WALL;
+            return true;
+        } else if (next->type == WALL) {
+            if (connectWall(grid, move_x, move_y, visited)) {
+                curr->type = CONFIRMED_WALL;
+                return true;
             }
         }
     }
-    return grid->grid[x][y].type == CONFIRMED_WALL;
+    return false;
 }
 
-static bool validateWalls(Grid *grid) {
+static bool validateWalls(Grid *grid, unordered_set<Point*> &visited) {
     for (int x = 0; x < grid->width; x++) {
         for (int y = 0; y < grid->height; y++) {
-            if (grid->grid[x][y].type == WALL && !connectWall(grid, x, y)) {
+            if (grid->grid[x][y].type == WALL && !connectWall(grid, x, y, visited)) {
                 return false;
             } 
         }
     }
     return true;
 }
-
 
 //Функція що зазово замальовує клітинки
 static bool fillWalls(Grid *grid, int x, int y) {
@@ -113,6 +109,8 @@ static bool fillWalls(Grid *grid, int x, int y) {
 }
 
 //Функція яка розв'язує саму головоломку. 
+//TODO: імпелементувати priority list
 bool solveCave(Grid *grid) {
-    return fillWalls(grid, 0, 0) && validateWalls(grid);
+    unordered_set<Point*> visited; 
+    return fillWalls(grid, 0, 0) && validateWalls(grid, visited);
 }

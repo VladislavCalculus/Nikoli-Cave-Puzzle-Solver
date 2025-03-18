@@ -25,7 +25,7 @@ void Grid::setPoint(int x, int y, Point p) {
 void Grid::show() {
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
-            cout << grid[x][y].str;
+            cout << grid[x][y].type;
         }
         cout << endl;
     }
@@ -35,7 +35,7 @@ void Grid::show() {
 bool Grid::canMoveTo (int x, int y, int direction, int distance) {
     int move_x = x + DIRECTIONS[direction][0] * distance;
     int move_y = y + DIRECTIONS[direction][1] * distance;
-    if ((move_x >= 0 && move_x < width) && (move_y >= 0 && move_y < height) && grid[move_x][move_y].type != WALL) {
+    if ((move_x >= 0 && move_x < width) && (move_y >= 0 && move_y < height) && grid[move_x][move_y].type != WALL && grid[move_x][move_y].type != CONFIRMED_WALL) {
             return true;
     }
     return false;
@@ -86,7 +86,7 @@ size_t Grid::countCaveCells() {
     size_t counter = 0;
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
-            if (grid[x][y].type != WALL) {
+            if (grid[x][y].type != WALL && grid[x][y].type != CONFIRMED_WALL) {
                 counter++;
             }
         }
@@ -99,7 +99,7 @@ bool Grid::fullyConnected(){
     queue<pair<int, int>> move_to; //К'ю який буде наповнюватися можливими варіантами для руху щоб запобігнути повторним мувам.
     for (int x = 0; x < width; x++) { //Пошук стартової клітинки. (Можливо варто буде оптимізувати)
         for (int y = 0; y < height; y++) {
-            if (grid[x][y].type != WALL) {
+            if (grid[x][y].type != WALL && grid[x][y].type != CONFIRMED_WALL) {
                 move_to.push({x, y});
                 break;
             }
