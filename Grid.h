@@ -3,6 +3,7 @@
 
 #include "Point.h"
 #include <vector>
+#include <queue>
 using namespace std;
 
 struct Grid {
@@ -18,6 +19,7 @@ struct Grid {
 private:
     size_t countCaveCells();
     bool canMoveTo(int x, int y, int direction, int distance);
+    void findStart(queue<pair<int, int>> &move_to);
 };
 
 #endif

@@ -5,7 +5,7 @@
 Point::Point(){
 	value = 0;
 	type = CELL;
-	str = new char[3];
+	str = new char[4];
 	strcpy(str, " . ");
 }
 
@@ -76,7 +76,7 @@ void Point::cellify(){
 	
 //Для отримання числа як рядка
 char* Point::intToChar(int value) {
-    char *str = new char[4];
+    char *str = new char[20];
     sprintf(str, " %d ", value);
     return str;
 }

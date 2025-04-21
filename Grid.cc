@@ -1,6 +1,5 @@
 #include <iostream>
 #include <unordered_set>
-#include <queue>
 #include "Grid.h"
 
 using namespace std;
@@ -25,7 +24,7 @@ void Grid::setPoint(int x, int y, Point p) {
 void Grid::show() {
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
-            cout << grid[x][y].type;
+            cout << grid[x][y].str;
         }
         cout << endl;
     }
@@ -94,20 +93,20 @@ size_t Grid::countCaveCells() {
     return counter;
 }
 
-//Функція для перевірки цілісності поля.
-bool Grid::fullyConnected(){
-    queue<pair<int, int>> move_to; //К'ю який буде наповнюватися можливими варіантами для руху щоб запобігнути повторним мувам.
+void Grid::findStart(queue<pair<int, int>> &move_to) {
     for (int x = 0; x < width; x++) { //Пошук стартової клітинки. (Можливо варто буде оптимізувати)
         for (int y = 0; y < height; y++) {
             if (grid[x][y].type != WALL && grid[x][y].type != CONFIRMED_WALL) {
                 move_to.push({x, y});
-                break;
+                return;
             }
         }
-        if (!move_to.empty()) {
-            break;
-        }
     }
+}
+//Функція для перевірки цілісності поля.
+bool Grid::fullyConnected(){
+    queue<pair<int, int>> move_to; //К'ю який буде наповнюватися можливими варіантами для руху щоб запобігнути повторним мувам.
+    findStart(move_to);
     if (move_to.empty()) { //Не знайдена ні одна пуста клітинка.
         return false;
     }
