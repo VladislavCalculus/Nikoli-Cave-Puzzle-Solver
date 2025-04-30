@@ -92,7 +92,7 @@ static Grid chooseGridTemplates() {
     for(size_t i = 0; i < grids.size(); i++) {
         cout << "Template №:" << (i+1) << endl;
         grids[i].show();
-        cout << endl;
+        cout << "\n";
     }
 
     cout << "Enter your option: ";
@@ -123,19 +123,36 @@ void init(){
         } else if (option == 2) {
             grid = chooseGridTemplates();
         } else {
-            cout << "Exiting the program...";
+            cout << "\nExiting the program...";
             break;
         }
 
         cout << "\nGrid state:\n";
         grid.show();
 
-        cout << "\n--= Wait... Solving in prosses... =--" << endl;
-        if (solveCave(&grid)) {
-           cout << "\nSolved Grid:\n";
-            grid.show();
-        } else {
-            cout << "\nNo solution found!\n";
+        cout << "\nChoose solving vatiant:\n1 - autosolve\n2 - solve yourself" << endl;
+        while (true) {
+            cout << "Select option: ";
+            cin >> option;
+            cin.ignore();
+
+            if (option == 1) {
+                cout << "\n--= Wait... Solving in prosses... =--" << endl;
+                if (solveCave(&grid)) {
+                   cout << "\nSolved Grid:\n";
+                    grid.show();
+                } else {
+                    cout << "\nNo solution found!\n";
+                }
+                break;
+            } else if (option == 2) {
+                cout << "\nplaceholder" << endl;
+                break;
+            } else {
+                cout << "Chose correct option!" << endl;
+            }
         }
+
+        cout << "\n" << endl;
     }
 }
