@@ -6,5 +6,6 @@
 using namespace std;
 
 bool solveCave (Grid *grid);
+bool solveCaveUser (Grid *grid);
 
 #endif

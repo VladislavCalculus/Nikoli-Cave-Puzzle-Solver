@@ -120,8 +120,27 @@ static bool fillWalls(Grid *grid, int x, int y) {
 }
 
 //Функція яка розв'язує саму головоломку. 
-//TODO: імпелементувати priority list
 bool solveCave(Grid *grid) {
+    unordered_set<Point*> visited; 
+    return fillWalls(grid, 0, 0) && validateWalls(grid, visited);
+}
+
+//Функція яка дозволяє користувачеві розв'зязувати головомку. 
+bool solveCaveUser(Grid *grid) {
+    cout << "\n" << endl;
+    cout << "How to use:\nenter 2 numbers (separeted by space) - change the state of the cell by this coordinates (Route -> Wall and wise-versa)\nenter -1 -1 - exit solving\n" << endl;
+    cout << "WARNING! Cell counting starts with 0, be aware of that.\n" << endl;
+
+    while (true) {
+        int width, height = -1;
+        cout << width << height << "enter coordinates: ";
+        cin >> width >> height;
+
+        if (width == -1 || height == -1) {
+            break;
+        }
+    }
+
     unordered_set<Point*> visited; 
     return fillWalls(grid, 0, 0) && validateWalls(grid, visited);
 }

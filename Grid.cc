@@ -22,12 +22,31 @@ void Grid::setPoint(int x, int y, Point p) {
 
 // Вивід поля.
 void Grid::show() {
+    cout << "   ";
     for (int x = 0; x < width; x++) {
+        cout << " " << x << " ";
+    }
+    cout << endl;
+
+    cout << " ╔";
+    for (int x = 0; x < width*3; x++) {
+        cout << "═";
+    }
+    cout << "══╗"<< endl;
+
+    for (int x = 0; x < width; x++) {
+        cout << x << "║ ";
         for (int y = 0; y < height; y++) {
             cout << grid[x][y].str;
         }
-        cout << endl;
+        cout << " ║" <<endl;
     }
+
+    cout << " ╚";
+    for (int x = 0; x < width*3; x++) {
+        cout << "═";
+    }
+    cout << "══╝" <<endl;
 }
 
 //Допоміжна прайват функція для перевірки чи з певнох координати можна порухатися. Приймає координати, напрям (від 0 до 3 відповідно) та дистанцію точки від х,у для перевірки.

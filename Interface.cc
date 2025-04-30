@@ -146,7 +146,10 @@ void init(){
                 }
                 break;
             } else if (option == 2) {
-                cout << "\nplaceholder" << endl;
+                if (solveCaveUser(&grid)) {
+                   cout << "\nSolved Grid:\n";
+                    grid.show();
+                }
                 break;
             } else {
                 cout << "Chose correct option!" << endl;
