@@ -125,41 +125,7 @@ bool solveCave(Grid *grid) {
     return fillWalls(grid, 0, 0) && validateWalls(grid, visited);
 }
 
-//Для руху по спіралі використаємо цю функцію. Вона буде знаходити наступний крок. loop - це зміна вказує поточне кільце.
-static pair<int, int> nextSpiralMove(Grid *grid, int x, int y, int &loop) {
-    int maxLoops = min(grid->width, grid->height) / 2 + (min(grid->width, grid->height) % 2 != 0) + 1;
-    if (loop > maxLoops) {
-        return {-1, -1}; // Вихід за межі
-    }
-
-    if(y == loop+1 && x == loop) {
-        loop++;
-        return {loop, loop};
-    }
-
-    // Праворуч
-    if (y == loop && x < grid->width - loop - 1) {
-        return {x + 1, y};
-    }
-
-    // Вниз
-    if (x == grid->width - loop - 1 && y < grid->height - loop - 1) {
-        return {x, y + 1};
-    }
-
-    // Ліворуч
-    if (y == grid->height - loop - 1 && x > loop) {
-        return {x - 1, y};
-    }
-
-    // Вгору
-    if (x == loop && y > loop) {
-        return {x, y - 1};
-    }
-
-    return {-1, -1};
-}
-
+//Перевірка чи з'єднані стіни до краю (без заповнення простих клітин)
 static bool checkWall(Grid *grid, int x, int y, unordered_set<Point*> &visited) {
     if (x < 0 || x >= grid->width || y < 0 || y >= grid->height) {
         return false;
@@ -195,6 +161,7 @@ static bool checkWall(Grid *grid, int x, int y, unordered_set<Point*> &visited) 
     return false;
 }
 
+//Перевірка чи всі стіни з'єднані до стін (використовується саме при роботі роситувача з полем)
 static bool checkWallConnectivity(Grid *grid) {
     for(int x = 0; x < grid->width; x++) {
         for(int y = 0; y < grid->height; y++) {
